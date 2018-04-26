@@ -24,15 +24,15 @@ public class SetDealsDao {
 
 		String insertTableSQL = "INSERT INTO DEAL_DETAILS"
 				+ "(SHOPNAME,SHOPCONTACTNUM,DISCOUNT,DESCRIPTION,STARTDATE,ENDDATE) values "
-				+ "(?,to_number(?),?,?,to_date(?, 'DDMMYYYY'),to_date(?, 'DDMMYYYY'));";
+				+ "(?,to_number(?),?,?,(?),(?))";
 
 		try {
 			dbConnection = getDBConnection();
 			preparedStatement = dbConnection.prepareStatement(insertTableSQL);
 
 			preparedStatement.setString(1, request.getShopName());
-			preparedStatement.setString(2, "9039566126");
-			preparedStatement.setString(3, request.getSaleDetails().getDiscount());
+			preparedStatement.setLong(2, request.getShopContactNum());
+			preparedStatement.setString(3, request.getSaleDetails().getDiscount().toString());
 			preparedStatement.setString(4, request.getSaleDetails().getDescription());
 			preparedStatement.setDate(5, request.getSaleDates().getStartDate());
 			preparedStatement.setDate(6, request.getSaleDates().getEndDate());
